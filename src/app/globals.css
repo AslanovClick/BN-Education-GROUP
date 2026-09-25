@@ -1,0 +1,219 @@
+@import "tailwindcss";
+
+/* ==========================================================================
+   BN Education — design tokens
+   ========================================================================== */
+
+@theme {
+  /* Brand palette */
+  --color-ink-950: #0d0716;
+  --color-ink-900: #180d29;
+  --color-ink-800: #1d0f33;
+  --color-ink-700: #2a1545;
+  --color-plum-700: #540746;
+
+  --color-gold-100: #f6eedb;
+  --color-gold-200: #f0e0b0;
+  --color-gold-300: #e8d3a3;
+  --color-gold-400: #e6c98a;
+  --color-gold-500: #ddba6d;
+  --color-gold-600: #c9a352;
+  --color-gold-700: #86662a; /* gold text on light surfaces — AA 4.9:1 on sand */
+
+  --color-sand-50: #f7f5f1;
+  --color-sand-100: #efebe3;
+
+  --color-muted: #5c5666; /* body copy on light — AA 6.5:1 */
+  --color-subtle: #6f6878; /* secondary labels on light — AA 4.9:1 */
+
+  /* Radii — only three */
+  --radius-sm: 4px; /* buttons, inputs */
+  --radius-md: 8px; /* cards, images */
+  --radius-full: 9999px; /* badges, icon buttons */
+
+  /* Motion */
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Breakpoints */
+  --breakpoint-xs: 30rem;
+}
+
+/* Semantic tokens resolve per element, so they follow the surface theme */
+@theme inline {
+  --color-fg: var(--fg);
+  --color-fg-muted: var(--fg-muted);
+  --color-accent-text: var(--accent-text);
+  --color-line: var(--line);
+
+  --font-sans: var(--font-raleway), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-cormorant), ui-serif, Georgia, serif;
+}
+
+/* Surface themes — sections set these, components read them */
+:root,
+.theme-light {
+  --fg: var(--color-ink-800);
+  --fg-muted: var(--color-muted);
+  --accent-text: var(--color-gold-700);
+  --line: rgb(29 15 51 / 0.08);
+  --gutter: 16px;
+  --container: 1440px;
+}
+
+.theme-dark {
+  --fg: #ffffff;
+  --fg-muted: rgb(255 255 255 / 0.72);
+  --accent-text: var(--color-gold-500);
+  --line: rgb(255 255 255 / 0.12);
+}
+
+@media (min-width: 48rem) {
+  :root {
+    --gutter: 24px;
+  }
+}
+@media (min-width: 80rem) {
+  :root {
+    --gutter: 32px;
+  }
+}
+
+/* ==========================================================================
+   Base
+   ========================================================================== */
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 88px;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background: var(--color-sand-50);
+    color: var(--fg);
+    font-family: var(--font-sans);
+    font-feature-settings: "lnum" 1, "pnum" 1;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: var(--color-gold-300);
+    color: var(--color-ink-800);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-gold-500);
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+}
+
+/* ==========================================================================
+   Typography scale
+   ========================================================================== */
+
+@utility text-display {
+  font-size: clamp(2.5rem, 1.6rem + 3.6vw, 4.5rem); /* 40 → 72 */
+  line-height: 1.18;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+@utility text-h1 {
+  font-size: clamp(1.75rem, 1.35rem + 1.6vw, 3rem); /* 28 → 48 */
+  line-height: 1.2;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+@utility text-h2 {
+  font-size: clamp(1.875rem, 1.55rem + 1.3vw, 2.5rem); /* 30 → 40 */
+  line-height: 1.2;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+@utility text-h3 {
+  font-size: 1.25rem; /* 20 */
+  line-height: 1.4;
+  font-weight: 700;
+  letter-spacing: -0.005em;
+}
+@utility text-lead {
+  font-size: clamp(1rem, 0.95rem + 0.25vw, 1.125rem); /* 16 → 18 */
+  line-height: 1.65;
+}
+@utility text-body {
+  font-size: 1rem;
+  line-height: 1.7;
+}
+@utility text-body-sm {
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+@utility text-eyebrow {
+  font-size: 0.8125rem; /* 13 */
+  line-height: 1.5;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+@utility text-caption {
+  font-size: 0.75rem;
+  line-height: 1.6;
+}
+@utility text-quote {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1.25rem, 1.1rem + 0.6vw, 1.5rem); /* 20 → 24 */
+  line-height: 1.4;
+}
+
+/* ==========================================================================
+   Layout
+   ========================================================================== */
+
+@utility container-page {
+  width: 100%;
+  max-width: calc(var(--container) + var(--gutter) * 2);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+@utility section-y {
+  padding-block: 4rem;
+  @media (min-width: 48rem) {
+    padding-block: 5rem;
+  }
+  @media (min-width: 64rem) {
+    padding-block: 6rem;
+  }
+}
+
+/* Left inset that aligns a full-bleed track with the page container */
+@utility inset-container {
+  padding-inline-start: max(var(--gutter), calc((100vw - var(--container)) / 2));
+  padding-inline-end: var(--gutter);
+  scroll-padding-inline-start: max(var(--gutter), calc((100vw - var(--container)) / 2));
+}
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Shared dark-image overlay (hero / approach / CTA) */
+@utility overlay-ink {
+  background: linear-gradient(
+    180deg,
+    rgb(29 15 51 / 0.55) 0%,
+    rgb(29 15 51 / 0.68) 40%,
+    rgb(13 7 22 / 0.88) 100%
+  );
+}
