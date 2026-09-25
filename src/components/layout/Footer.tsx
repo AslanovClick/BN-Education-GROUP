@@ -1,9 +1,9 @@
 import Image from "next/image";
-import Link from "next/link";
 import { EnvelopeSimple, InstagramLogo, LinkedinLogo, MapPin, Phone } from "@phosphor-icons/react/ssr";
 import type { Icon as PhosphorIcon } from "@phosphor-icons/react";
 import { Icon } from "@/components/ui/Icon";
 import { contact, footerNav, routes } from "@/content/site";
+import { SiteLink } from "./SiteLink";
 
 const linkClass = "text-sm text-white/65 transition-colors duration-300 hover:text-gold-500";
 
@@ -13,9 +13,9 @@ export function Footer() {
       <div className="container-page">
         <div className="grid grid-cols-2 gap-x-8 gap-y-10 border-b border-line pb-12 md:grid-cols-3 lg:grid-cols-[minmax(0,292px)_1fr_1fr_1fr] lg:gap-x-12 lg:pb-14">
           <div className="col-span-2 md:col-span-3 lg:col-span-1">
-            <Link href={routes.home} aria-label="BN Education Group — home" className="inline-block">
+            <SiteLink href={routes.home} aria-label="BN Education Group — home" className="inline-block">
               <Image src="/brand/logo-horizontal.svg" alt="BN Education Group" width={130} height={54} />
-            </Link>
+            </SiteLink>
             <p className="mt-5 max-w-[292px] text-sm leading-relaxed text-white/65">
               Premium education consulting for families seeking excellence in international education. Based in
               Switzerland.
@@ -25,9 +25,9 @@ export function Footer() {
           <FooterColumn title="Quick Links">
             {footerNav.quickLinks.map((l) => (
               <li key={l.label}>
-                <Link href={l.href} className={linkClass}>
+                <SiteLink href={l.href} className={linkClass}>
                   {l.label}
-                </Link>
+                </SiteLink>
               </li>
             ))}
           </FooterColumn>
@@ -35,9 +35,9 @@ export function Footer() {
           <FooterColumn title="Resources">
             {footerNav.resources.map((l) => (
               <li key={l.label}>
-                <Link href={l.href} className={linkClass}>
+                <SiteLink href={l.href} className={linkClass}>
                   {l.label}
-                </Link>
+                </SiteLink>
               </li>
             ))}
           </FooterColumn>
@@ -61,14 +61,14 @@ export function Footer() {
           <p>© {new Date().getFullYear()} BN Education GmbH. All rights reserved.</p>
           <ul className="flex gap-6">
             <li>
-              <Link href={routes.privacy} className="transition-colors hover:text-gold-500">
+              <SiteLink href={routes.privacy} className="transition-colors hover:text-gold-500">
                 Privacy Policy
-              </Link>
+              </SiteLink>
             </li>
             <li>
-              <Link href={routes.terms} className="transition-colors hover:text-gold-500">
+              <SiteLink href={routes.terms} className="transition-colors hover:text-gold-500">
                 Terms of Service
-              </Link>
+              </SiteLink>
             </li>
           </ul>
         </div>

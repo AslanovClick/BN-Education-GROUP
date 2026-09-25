@@ -33,3 +33,23 @@ export function SectionHeading({
     </div>
   );
 }
+
+type SplitHeadingProps = {
+  eyebrow: string;
+  title: ReactNode;
+  description?: ReactNode;
+  className?: string;
+};
+
+/** Section header with the title on the left and the lead copy beside it (stacks on mobile). */
+export function SplitHeading({ eyebrow, title, description, className }: SplitHeadingProps) {
+  return (
+    <div className={cn("grid items-end gap-x-12 gap-y-5 lg:grid-cols-[minmax(0,420px)_minmax(0,1fr)]", className)}>
+      <div>
+        <Eyebrow>{eyebrow}</Eyebrow>
+        <h2 className="mt-3 text-h2 text-balance text-fg">{title}</h2>
+      </div>
+      {description && <div className="max-w-[640px] text-lead text-pretty text-fg-muted lg:pb-1">{description}</div>}
+    </div>
+  );
+}

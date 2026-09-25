@@ -1,14 +1,24 @@
 "use client";
 
 import Image from "next/image";
-import { useRef } from "react";
-import { motion, useScroll, useSpring } from "motion/react";
+import { useRef, useState } from "react";
+import { motion, useMotionValueEvent, useScroll, useSpring } from "motion/react";
 import { EASE_OUT, Reveal } from "@/components/motion/Reveal";
 import { SectionHeading } from "@/components/ui/Typography";
 import { steps, type Step } from "@/content/home";
 import { cn } from "@/lib/cn";
 
-export function Process() {
+type ProcessProps = {
+  eyebrow?: string;
+  title?: string;
+  description?: string;
+};
+
+export function Process({
+  eyebrow = "How we work",
+  title = "A clear five-step process",
+  description = "From the first conversation to ongoing support throughout your child’s educational journey.",
+}: ProcessProps) {
   const listRef = useRef<HTMLOListElement>(null);
   const { scrollYProgress } = useScroll({ target: listRef, offset: ["start 65%", "end 55%"] });
   const progress = useSpring(scrollYProgress, { stiffness: 90, damping: 26, restDelta: 0.0005 });
@@ -19,14 +29,16 @@ export function Process() {
         <Reveal>
           <SectionHeading
             align="center"
-            eyebrow="How we work"
-            title="A clear five-step process"
-            description="From the first conversation to ongoing support throughout your child’s educational journey."
+            eyebrow={eyebrow}
+            title={title}
+            description={description}
             className="mx-auto"
           />
         </Reveal>
 
-        <ol ref={listRef} className="relative mx-auto mt-14 flex max-w-[1120px] flex-col gap-12 lg:mt-20 lg:gap-10">
+        <MobileProcess />
+
+        <ol ref={listRef} className="relative mx-auto mt-14 hidden max-w-[1120px] flex-col gap-12 md:flex lg:mt-20 lg:gap-10">
           {/* Timeline rail + scroll-linked progress */}
           <span
             aria-hidden
@@ -44,6 +56,99 @@ export function Process() {
         </ol>
       </div>
     </section>
+  );
+}
+
+/** Scroll distance (in svh) given to each step while the mobile panel is pinned. */
+const MOBILE_STEP_SVH = 34;
+
+/**
+ * Phones: instead of a long stacked list, the timeline is pinned under the header and the steps
+ * replace one another as the user scrolls (~34svh per step). A horizontal rail shows progress.
+ * All steps are stacked in one grid cell, so the panel keeps the height of the tallest one.
+ */
+function MobileProcess() {
+  const trackRef = useRef<HTMLDivElement>(null);
+  const [active, setActive] = useState(0);
+  const count = steps.length;
+  const { scrollYProgress } = useScroll({ target: trackRef, offset: ["start 80px", "end end"] });
+  const rail = useSpring(scrollYProgress, { stiffness: 140, damping: 30, restDelta: 0.001 });
+
+  useMotionValueEvent(scrollYProgress, "change", (p) => {
+    const next = Math.min(count - 1, Math.floor(p * count));
+    setActive((prev) => (prev === next ? prev : next));
+  });
+
+  return (
+    <div
+      ref={trackRef}
+      className="relative mt-10 md:hidden"
+      style={{ height: `calc(100svh - 5rem + ${count * MOBILE_STEP_SVH}svh)` }}
+    >
+      {/* Full content for assistive tech; the animated panel below is presentational */}
+      <ol className="sr-only">
+        {steps.map((step, i) => (
+          <li key={step.title}>
+            Step {i + 1}: {step.title}. {step.text.join(" ")}
+          </li>
+        ))}
+      </ol>
+
+      <div aria-hidden className="sticky top-20 flex h-[calc(100svh-5rem)] flex-col justify-center py-4">
+        {/* Horizontal rail */}
+        <div className="relative flex justify-between">
+          <span className="absolute inset-x-[6px] top-[6px] h-px bg-gold-300" />
+          <motion.span style={{ scaleX: rail }} className="absolute inset-x-[6px] top-[6px] h-px origin-left bg-gold-500" />
+          {steps.map((step, i) => (
+            <div key={step.title} className="relative flex flex-col items-center gap-2">
+              <span
+                className={cn(
+                  "size-3 rounded-full border-[1.5px] border-gold-500 ring-[3px] ring-sand-50 transition-colors duration-500",
+                  i <= active ? "bg-gold-500" : "bg-sand-50",
+                )}
+              />
+              <span
+                className={cn(
+                  "text-xs font-bold tabular-nums transition-colors duration-500",
+                  i === active ? "text-gold-500" : "text-ink-800/35",
+                )}
+              >
+                {String(i + 1).padStart(2, "0")}
+              </span>
+            </div>
+          ))}
+        </div>
+
+        {/* Steps, stacked in one cell and cross-faded */}
+        <div className="mt-5 grid">
+          {steps.map((step, i) => (
+            <motion.article
+              key={step.title}
+              initial={false}
+              animate={{ opacity: i === active ? 1 : 0, y: i === active ? 0 : i < active ? -12 : 12 }}
+              transition={{ duration: 0.5, ease: EASE_OUT }}
+              className={cn(
+                "col-start-1 row-start-1 overflow-hidden rounded-md bg-white",
+                i !== active && "pointer-events-none",
+              )}
+            >
+              <div className="relative aspect-[2/1] bg-sand-100">
+                <Image src={step.image} alt="" fill sizes="100vw" placeholder="blur" className="object-cover" />
+              </div>
+              <div className="p-6">
+                <p className="text-sm font-bold text-gold-500">Step {String(i + 1).padStart(2, "0")}</p>
+                <h3 className="mt-2 text-h3 text-balance text-ink-800">{step.title}</h3>
+                <div className="mt-3 space-y-2 text-body-sm text-muted">
+                  {step.text.map((p) => (
+                    <p key={p}>{p}</p>
+                  ))}
+                </div>
+              </div>
+            </motion.article>
+          ))}
+        </div>
+      </div>
+    </div>
   );
 }
 

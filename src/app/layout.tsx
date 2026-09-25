@@ -32,7 +32,13 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${raleway.variable} ${cormorant.variable} antialiased`}>
+    <html
+      lang="en"
+      // Keeps CSS smooth scrolling for in-page scrolls, but lets Next jump instantly to the top on
+      // route changes (Next 16 no longer does this by default).
+      data-scroll-behavior="smooth"
+      className={`${raleway.variable} ${cormorant.variable} antialiased`}
+    >
       <body className="min-h-dvh">
         <MotionProvider>{children}</MotionProvider>
       </body>

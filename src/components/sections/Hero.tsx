@@ -66,7 +66,9 @@ export function Hero() {
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_40%,rgb(13_7_22/0.45)_100%)]" />
       </div>
 
-      <div className="container-page flex flex-col items-center pb-12 pt-28 text-center md:pb-14 md:pt-30">
+      {/* Phones keep a relaxed, fixed rhythm. From md up the rhythm scales with viewport *height*
+          (--hg) so the whole hero, stats included, fits on screen down to 1280×720 laptops. */}
+      <div className="container-page flex flex-col items-center pb-12 pt-28 text-center [--hg:clamp(0.75rem,2.4vh,2.5rem)] md:pb-[var(--hg)] md:pt-[calc(5rem+var(--hg))]">
         <motion.div variants={intro} initial="hidden" animate="visible" className="flex flex-col items-center">
           <motion.div variants={rise}>
             <Image
@@ -75,34 +77,45 @@ export function Hero() {
               width={336}
               height={150}
               preload
-              className="h-auto w-[210px] md:w-[250px] lg:w-[280px]"
+              className="h-auto w-[210px] md:h-[clamp(64px,11.5vh,126px)] md:w-auto"
             />
           </motion.div>
 
-          <motion.div variants={rise} className="mt-8 md:mt-10">
+          <motion.div variants={rise} className="mt-8 md:mt-[var(--hg)]">
             <Badge dot>Trusted by families worldwide</Badge>
           </motion.div>
 
-          <h1 className="mt-8 flex flex-col items-center gap-2 md:mt-10 md:gap-3">
-            <motion.span variants={rise} className="text-h1 text-white">
+          <h1 className="mt-8 flex flex-col items-center gap-2 font-bold tracking-[-0.02em] md:mt-[var(--hg)]">
+            <motion.span
+              variants={rise}
+              className="text-h1 text-white md:text-[clamp(1.625rem,min(1.35rem+1.6vw,5.2vh),3rem)] md:leading-[1.2]"
+            >
               Your Family’s
             </motion.span>
-            <motion.span variants={rise} className="text-display text-balance text-gold-500">
+            <motion.span
+              variants={rise}
+              className="text-display text-balance text-gold-500 md:text-[clamp(2.25rem,min(1.6rem+3.6vw,7.8vh),4.5rem)] md:leading-[1.15]"
+            >
               Private Education Office
             </motion.span>
           </h1>
 
-          <motion.div variants={rise} className="mt-8 max-w-[720px] space-y-4 text-lead text-white/80 md:mt-10">
+          <motion.div
+            variants={rise}
+            className="mt-8 max-w-[720px] space-y-4 text-lead text-white/80 md:mt-[var(--hg)] md:space-y-3"
+          >
             <p className="text-pretty">
               We uncover your child’s potential, create a personalised education strategy, and manage the entire
               journey — from choosing the right school to university admission.
             </p>
-            <p className="text-pretty">So you can focus on what matters most — being there for your child.</p>
+            <p className="text-pretty">
+              So you can focus on what matters most — being there for your child.
+            </p>
           </motion.div>
 
           <motion.div
             variants={rise}
-            className="mt-10 flex w-full flex-col gap-3 xs:w-auto xs:flex-row xs:gap-4"
+            className="mt-10 flex w-full flex-col gap-3 xs:w-auto xs:flex-row xs:gap-4 md:mt-[calc(var(--hg)*1.25)]"
           >
             <Button href={routes.assessment}>Take an Assessment</Button>
             <Button href={routes.consultation} variant="outline-white">
@@ -115,14 +128,16 @@ export function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.9, duration: 1, ease: EASE_OUT }}
-          className="mt-12 grid w-full max-w-[960px] grid-cols-2 gap-x-6 gap-y-8 border-t border-line pt-10 md:mt-14 md:grid-cols-4"
+          className="mt-12 grid w-full max-w-[960px] grid-cols-2 gap-x-6 gap-y-8 border-t border-line pt-10 md:mt-[calc(var(--hg)*1.25)] md:grid-cols-4 md:pt-[var(--hg)]"
         >
           {heroStats.map((stat, i) => (
-            <div key={stat.label} className="flex flex-col items-center gap-1.5">
+            <div key={stat.label} className="flex flex-col items-center gap-1.5 md:gap-1">
               <dd className="order-first text-[28px] font-bold leading-tight tracking-[-0.02em] text-gold-500 md:text-[32px]">
                 <CountUp value={stat.value} suffix={stat.suffix} delay={0.9 + i * 0.08} />
               </dd>
-              <dt className="text-caption font-medium uppercase tracking-[0.1em] text-white/65">{stat.label}</dt>
+              <dt className="text-caption font-medium uppercase tracking-[0.1em] text-white/65">
+                {stat.label}
+              </dt>
             </div>
           ))}
         </motion.dl>

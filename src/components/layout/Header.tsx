@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
@@ -10,6 +9,7 @@ import { Icon } from "@/components/ui/Icon";
 import { EASE_OUT } from "@/components/motion/Reveal";
 import { mainNav, routes } from "@/content/site";
 import { cn } from "@/lib/cn";
+import { SiteLink } from "./SiteLink";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { useSurfaceBelow } from "./useSurfaceBelow";
 
@@ -51,13 +51,13 @@ export function Header() {
         )}
       >
         <div className="container-page grid h-20 grid-cols-[1fr_auto] items-center gap-4 xl:grid-cols-[1fr_auto_1fr]">
-          <Link href={routes.home} aria-label="BN Education Group — home" className="justify-self-start">
+          <SiteLink href={routes.home} aria-label="BN Education Group — home" className="justify-self-start">
             {/* Logo drawn with a mask so it takes the header's current text colour */}
             <span
               aria-hidden
               className="block aspect-[130/54] w-[112px] bg-current [mask:url(/brand/logo-horizontal.svg)_center/contain_no-repeat] lg:w-[130px]"
             />
-          </Link>
+          </SiteLink>
 
           <nav aria-label="Main" className="hidden xl:block">
             <ul className="flex items-center gap-9">
@@ -65,7 +65,7 @@ export function Header() {
                 const active = item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
                 return (
                   <li key={item.href}>
-                    <Link
+                    <SiteLink
                       href={item.href}
                       aria-current={active ? "page" : undefined}
                       className={cn(
@@ -78,7 +78,7 @@ export function Header() {
                       )}
                     >
                       {item.label}
-                    </Link>
+                    </SiteLink>
                   </li>
                 );
               })}
@@ -138,7 +138,7 @@ function MobileMenu({ pathname, onNavigate }: { pathname: string; onNavigate: ()
                   visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: EASE_OUT } },
                 }}
               >
-                <Link
+                <SiteLink
                   href={item.href}
                   onClick={onNavigate}
                   aria-current={active ? "page" : undefined}
@@ -148,7 +148,7 @@ function MobileMenu({ pathname, onNavigate }: { pathname: string; onNavigate: ()
                   )}
                 >
                   {item.label}
-                </Link>
+                </SiteLink>
               </motion.li>
             );
           })}

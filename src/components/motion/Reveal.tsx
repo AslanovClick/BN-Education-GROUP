@@ -7,7 +7,7 @@ import type { ComponentProps, ReactNode } from "react";
 export const EASE_OUT = [0.16, 1, 0.3, 1] as const;
 
 // Fire a little before the element is fully in view, and only once.
-const VIEWPORT = { once: true, amount: 0.2, margin: "0px 0px -8% 0px" } as const;
+const VIEWPORT = { once: true, amount: 0.1, margin: "0px 0px -6% 0px" } as const;
 
 // Only opacity + transform are animated (GPU-composited, no layout/paint work while scrolling).
 // `custom` carries an optional delay (seconds) into the visible state.

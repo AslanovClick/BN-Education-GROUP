@@ -9,8 +9,9 @@ export const routes = {
   contact: "/contact",
   assessment: "/assessment",
   consultation: "/consultation",
-  privacy: "#",
-  terms: "#",
+  privacy: "/privacy",
+  terms: "/terms",
+  quiz: "/potential-quiz",
 } as const;
 
 export const mainNav = [
@@ -38,6 +39,11 @@ export const contact = {
   phone: "+41 12 345 67 89",
   phoneHref: "tel:+41123456789",
   city: "Zürich, Switzerland",
+  // The design's text says "Bahnhofstrasse 100" but its map pin reads "Bahnhofstrasse 10" — using the map's value
+  // so the page doesn't contradict itself. Confirm the real address.
+  address: "Bahnhofstrasse 10, 8001 Zürich, Switzerland",
+  mapHref: "https://www.google.com/maps/search/?api=1&query=Bahnhofstrasse+10,+8001+Z%C3%BCrich",
+  hours: "Mon – Fri: 9:00 – 18:00 CET · Sat – Sun: closed",
   linkedin: "#",
   instagram: "#",
 } as const;
@@ -52,7 +58,7 @@ export const footerNav = {
   resources: [
     { label: "Take Assessment", href: routes.assessment },
     { label: "Application Process", href: routes.process },
-    { label: "Potential Quiz", href: "#" },
+    { label: "Potential Quiz", href: routes.quiz },
     { label: "Contact", href: routes.contact },
   ],
 } as const;

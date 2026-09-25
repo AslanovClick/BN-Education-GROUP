@@ -3,11 +3,12 @@ import type { Icon as PhosphorIcon } from "@phosphor-icons/react";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { Icon } from "@/components/ui/Icon";
-import type { EventItem } from "@/content/home";
+import { registrationHref, type EventItem } from "@/content/events";
 import { cn } from "@/lib/cn";
 import { Card, CardImage } from "./Card";
 
-export function EventCard({ event }: { event: EventItem }) {
+/** Event card. `action={false}` hides the CTA (e.g. as the summary on the registration page). */
+export function EventCard({ event, action = true }: { event: EventItem; action?: boolean }) {
   return (
     <Card>
       <CardImage src={event.image} className="aspect-[2/1]">
@@ -24,11 +25,13 @@ export function EventCard({ event }: { event: EventItem }) {
             {event.location}
           </Meta>
         </ul>
-        <div className="mt-auto pt-6">
-          <Button href={event.href} variant="outline-gold" size="md" arrow>
-            Register Now
-          </Button>
-        </div>
+        {action && (
+          <div className="mt-auto pt-6">
+            <Button href={registrationHref(event)} variant="outline-gold" size="md" arrow>
+              Register Now
+            </Button>
+          </div>
+        )}
       </div>
     </Card>
   );

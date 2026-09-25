@@ -1,6 +1,6 @@
 import { EventCard } from "@/components/cards/EventCard";
 import { CarouselSection } from "@/components/ui/CarouselSection";
-import { events } from "@/content/home";
+import { featuredEvents } from "@/content/events";
 
 export function Events() {
   return (
@@ -12,8 +12,8 @@ export function Events() {
       label="Upcoming events"
       className="bg-sand-50"
     >
-      {events.map((event, i) => (
-        <EventCard key={`${event.title}-${i}`} event={event} />
+      {featuredEvents.map((event) => (
+        <EventCard key={event.id} event={event} />
       ))}
     </CarouselSection>
   );
