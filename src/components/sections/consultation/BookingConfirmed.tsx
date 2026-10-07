@@ -40,7 +40,7 @@ export function BookingConfirmed({ booking, onReset }: { booking: Booking; onRes
       "VERSION:2.0",
       "PRODID:-//BN Education//Consultation//EN",
       "BEGIN:VEVENT",
-      `UID:${toCalendarStamp(booking.start)}@bneducation.ch`,
+      `UID:${toCalendarStamp(booking.start)}@bnglobal.net`,
       `DTSTAMP:${toCalendarStamp(new Date())}`,
       `DTSTART:${toCalendarStamp(booking.start)}`,
       `DTEND:${toCalendarStamp(end)}`,

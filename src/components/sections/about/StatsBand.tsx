@@ -15,7 +15,7 @@ export function StatsBand() {
 
       <div className="container-page">
         <Reveal>
-          <dl className="grid grid-cols-2 gap-x-6 gap-y-10 rounded-md bg-sand-50/15 px-6 py-10 md:grid-cols-4 md:px-10">
+          <dl className="grid gap-y-8 rounded-md bg-sand-50/15 px-6 py-10 sm:grid-cols-3 sm:gap-x-6 md:px-10">
             {heroStats.map((stat) => (
               <div key={stat.label} className="flex flex-col items-center gap-2 text-center">
                 <dd className="order-first text-[32px] font-bold leading-tight tracking-[-0.02em] text-gold-500 md:text-[40px]">

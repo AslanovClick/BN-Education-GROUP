@@ -1,7 +1,7 @@
 import type { StaticImageData } from "next/image";
 import summerImage from "@/assets/images/service-summer.jpg";
 import enrolmentImage from "@/assets/images/step-5.jpg";
-import { programmes } from "./services";
+import { programmes } from "./schools";
 
 /** Structured article body — rendered by <ArticleBody>, headings also feed the table of contents. */
 export type Block =

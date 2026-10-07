@@ -13,7 +13,7 @@ import { routes } from "@/content/site";
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Get in touch to discuss your educational goals. Our Zürich team is here to help you navigate the path to academic excellence.",
+    "Get in touch to discuss your educational goals. Our team is here to help you navigate the path to academic excellence.",
 };
 
 export default function ContactPage() {

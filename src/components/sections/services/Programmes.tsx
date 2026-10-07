@@ -1,10 +1,10 @@
 import { ProgrammeCard } from "@/components/cards/ProgrammeCard";
 import { CarouselSection } from "@/components/ui/CarouselSection";
-import { programmes } from "@/content/services";
+import { programmes } from "@/content/schools";
 
 const ITEM = "w-[72vw] max-w-[300px] sm:w-[280px] xl:w-[264px]";
 
-export function Programmes() {
+export function Programmes({ className = "bg-sand-50" }: { className?: string }) {
   return (
     <CarouselSection
       id="programmes"
@@ -23,7 +23,7 @@ export function Programmes() {
         </>
       }
       label="Short and summer programmes"
-      className="bg-sand-50"
+      className={className}
       itemClassName={ITEM}
     >
       {programmes.map((item) => (

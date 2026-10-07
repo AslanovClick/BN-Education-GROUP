@@ -5,7 +5,7 @@ export const interests = [
   "University admissions",
   "Short & summer programmes",
   "Academic support",
-  "BN Academic Centre",
+  "BN Academic Centre (Tutors)",
   "Family support",
   "Not sure yet — I’d like advice",
 ] as const;
@@ -20,7 +20,7 @@ export const meeting = {
   durationMin: 45,
   format: "Video call",
   /** Placeholder until a real booking backend issues links. */
-  link: "https://meet.bneducation.ch/e-rostova",
+  link: "https://meet.bnglobal.net/consultation",
   /** Office timezone the slots are defined in. */
   officeTz: "Europe/Zurich",
   /** Bookable start times, office time (HH:MM). */

@@ -6,9 +6,8 @@ import { PageHero } from "@/components/layout/PageHero";
 import { CtaBanner } from "@/components/sections/CtaBanner";
 import { PartnersStrip } from "@/components/sections/PartnersStrip";
 import { Packages } from "@/components/sections/services/Packages";
-import { PartnerInstitutions } from "@/components/sections/services/PartnerInstitutions";
-import { Programmes } from "@/components/sections/services/Programmes";
-import { ServicesTimeline } from "@/components/sections/services/ServicesTimeline";
+import { Services } from "@/components/sections/Services";
+import { SchoolsTeaser } from "@/components/sections/schools/SchoolsTeaser";
 import { routes } from "@/content/site";
 
 export const metadata: Metadata = {
@@ -33,10 +32,9 @@ export default function ServicesPage() {
           image={heroImage}
         />
         <PartnersStrip />
-        <ServicesTimeline />
+        <Services hideLinkTo={routes.services} />
         <Packages />
-        <PartnerInstitutions />
-        <Programmes />
+        <SchoolsTeaser className="bg-white" />
         <CtaBanner />
       </main>
       <Footer />

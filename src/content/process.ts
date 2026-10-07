@@ -15,3 +15,10 @@ export const resources: Resource[] = [
     href: "#",
   },
 ];
+
+/** Package brochures — placeholders until English PDFs are uploaded. */
+export const brochures: Resource[] = [
+  { title: "University Admission Packages", text: "Select, Smart, Royal and Royal Signature Uni", href: "#" },
+  { title: "Academic Support Packages", text: "Smart and Royal Academic Support", href: "#" },
+  { title: "BN Global Academic Route", text: "Individual guidance through the academic year", href: "#" },
+];

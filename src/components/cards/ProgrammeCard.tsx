@@ -1,5 +1,5 @@
 import { TextLink } from "@/components/ui/TextLink";
-import type { Programme } from "@/content/services";
+import type { Programme } from "@/content/schools";
 import { Card, CardImage } from "./Card";
 
 /** Compact card for short & summer programmes. */

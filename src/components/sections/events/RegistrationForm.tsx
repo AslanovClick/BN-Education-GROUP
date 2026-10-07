@@ -11,6 +11,7 @@ import { Icon } from "@/components/ui/Icon";
 import { TextLink } from "@/components/ui/TextLink";
 import type { EventItem } from "@/content/events";
 import { routes } from "@/content/site";
+import { cn } from "@/lib/cn";
 
 const DIAL_CODES = ["+41", "+44", "+49", "+33", "+39", "+34", "+1", "+971", "+7"];
 const AGES = Array.from({ length: 14 }, (_, i) => String(i + 5)); // 5–18
@@ -33,7 +34,7 @@ export function RegistrationForm({ event }: { event: EventItem }) {
   const { errors, formProps } = useFormValidation(() => setDone(true));
 
   return (
-    <div className={formPanelClass}>
+    <div className={cn(formPanelClass, "md:p-8")}>
       <AnimatePresence mode="wait" initial={false}>
         {done ? (
           <motion.div
@@ -60,16 +61,16 @@ export function RegistrationForm({ event }: { event: EventItem }) {
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.3, ease: EASE_OUT }}
             aria-label={`Register for ${event.title}`}
-            className="flex flex-col gap-10"
+            className="flex flex-col gap-8"
             {...formProps}
           >
             <input type="hidden" name="event" value={event.id} />
 
-            <fieldset className="flex flex-col gap-6">
+            <fieldset className="flex flex-col gap-5">
               <legend className="contents">
                 <SectionTitle>Personal Details</SectionTitle>
               </legend>
-              <div className="grid gap-6 sm:grid-cols-2">
+              <div className="grid gap-5 sm:grid-cols-2">
                 <Field id="firstName" label="First Name" required error={errors.firstName}>
                   <Input
                     id="firstName"
@@ -93,41 +94,39 @@ export function RegistrationForm({ event }: { event: EventItem }) {
                   />
                 </Field>
               </div>
-              <Field
-                id="email"
-                label="Email Address"
-                required
-                hint="We’ll send the event link and updates to this email."
-                error={errors.email}
-              >
-                <Input
-                  id="email"
-                  name="email"
-                  type="email"
-                  autoComplete="email"
-                  placeholder="sarah.jenkins@example.com"
-                  required
-                  aria-invalid={!!errors.email || undefined}
-                  aria-describedby={describedBy("email", errors.email, "hint")}
-                />
-              </Field>
-              <Field id="phone" label="Phone Number" optional>
-                <div className="flex gap-2">
-                  <Select name="dialCode" aria-label="Country code" defaultValue="+41" className="w-28 shrink-0">
-                    {DIAL_CODES.map((c) => (
-                      <option key={c}>{c}</option>
-                    ))}
-                  </Select>
-                  <Input id="phone" name="phone" type="tel" autoComplete="tel-national" placeholder="79 123 45 67" />
-                </div>
-              </Field>
+              {/* Email and phone share a row; the hint sits under both */}
+              <div className="grid items-start gap-5 sm:grid-cols-2">
+                <Field id="email" label="Email Address" required error={errors.email}>
+                  <Input
+                    id="email"
+                    name="email"
+                    type="email"
+                    autoComplete="email"
+                    placeholder="sarah@example.com"
+                    required
+                    aria-invalid={!!errors.email || undefined}
+                    aria-describedby={describedBy("email", errors.email, "hint")}
+                  />
+                </Field>
+                <Field id="phone" label="Phone Number" optional>
+                  <div className="flex gap-2">
+                    <Select name="dialCode" aria-label="Country code" defaultValue="+41" className="w-24 shrink-0">
+                      {DIAL_CODES.map((c) => (
+                        <option key={c}>{c}</option>
+                      ))}
+                    </Select>
+                    <Input id="phone" name="phone" type="tel" autoComplete="tel-national" placeholder="79 123 45 67" />
+                  </div>
+                </Field>
+              </div>
+              <p id="email-hint" className="-mt-2 text-caption text-subtle">We’ll send the event link and updates to your email.</p>
             </fieldset>
 
-            <fieldset className="flex flex-col gap-6">
+            <fieldset className="flex flex-col gap-5">
               <legend className="contents">
                 <SectionTitle>Student Information</SectionTitle>
               </legend>
-              <div className="grid gap-6 sm:grid-cols-2">
+              <div className="grid gap-5 sm:grid-cols-2">
                 <Field id="age" label="Child’s Age" optional>
                   <Select id="age" name="age" defaultValue="">
                     <option value="">Select age</option>
@@ -147,7 +146,7 @@ export function RegistrationForm({ event }: { event: EventItem }) {
               </div>
             </fieldset>
 
-            <div className="flex flex-col gap-8 border-t border-ink-800/8 pt-8">
+            <div className="flex flex-col gap-6 border-t border-ink-800/8 pt-6">
               <Checkbox
                 id="consent"
                 name="consent"

@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { EventCard } from "@/components/cards/EventCard";
 import { EASE_OUT, Reveal } from "@/components/motion/Reveal";
 import { eventFormats, type EventItem } from "@/content/events";
-import { cn } from "@/lib/cn";
+import { chipClass } from "@/components/ui/chip";
 
 type Filter = "All" | (typeof eventFormats)[number];
 const FILTERS: Filter[] = ["All", ...eventFormats];
@@ -28,14 +28,7 @@ export function EventsListing({ events }: { events: EventItem[] }) {
                   type="button"
                   aria-pressed={active}
                   onClick={() => setFilter(f)}
-                  className={cn(
-                    // Small chip versions of the primary / outline-gold buttons
-                    "inline-flex h-10 items-center rounded-sm border-[1.5px] px-5 text-sm font-semibold",
-                    "transition-[background-color,border-color,color,box-shadow] duration-300 ease-out-soft",
-                    active
-                      ? "border-gold-500 bg-gold-500 text-ink-800 shadow-[0_0_14px_rgb(221_186_109/0.3)]"
-                      : "border-gold-500 text-accent-text hover:bg-gold-500/15",
-                  )}
+                  className={chipClass(active)}
                 >
                   {f === "All" ? "All Events" : f}
                 </button>

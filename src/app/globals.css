@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+/* Devices without hover (phones, tablets): show hover-only content by default */
+@custom-variant touch (@media (hover: none));
+@custom-variant hover-fine (@media (hover: hover));
+
 /* ==========================================================================
    BN Education — design tokens
    ========================================================================== */

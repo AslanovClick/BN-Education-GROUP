@@ -23,15 +23,16 @@ import step4 from "@/assets/images/step-4.jpg";
 import step5 from "@/assets/images/step-5.jpg";
 
 export const heroStats = [
-  { value: 15, suffix: "+", label: "Years Expertise" },
-  { value: 98, suffix: "%", label: "First-Choice Placement" },
-  { value: 50, suffix: "+", label: "Partner Institutions" },
-  { value: 500, suffix: "+", label: "Successful Students" },
+  { value: 15, suffix: "", label: "Years in International Education" },
+  { value: 500, suffix: "+", label: "Tutors from the US & UK" },
+  { value: 100, suffix: "%", label: "Admitted to a Chosen University" },
 ] as const;
 
 export type Service = {
   title: string;
   text: string;
+  /** Two-line summary for the compact service tiles. */
+  short: string;
   icon: PhosphorIcon;
   image: StaticImageData;
   href: string;
@@ -40,41 +41,47 @@ export type Service = {
 export const services: Service[] = [
   {
     title: "Boarding School Placement",
+    short: "5–8 schools chosen around your child, admission fully managed.",
     text: "We start not with a list of schools, but with your child — their talents, personality, interests and long-term goals. After assessment we present 5–8 carefully selected schools and manage the full admission process.",
     icon: Student,
     image: serviceBoarding,
-    href: routes.services,
+    href: routes.boardingSchools,
   },
   {
     title: "University Admissions",
+    short: "The UK, the US and Europe — from audit to enrolment.",
     text: "Expert guidance through applications to top global universities. Strategy, essays, interviews and complete process management for the best possible outcomes.",
     icon: GraduationCap,
     image: serviceUniversity,
-    href: routes.services,
+    href: routes.universityAdmissions,
   },
   {
     title: "Short & Summer Programmes",
+    short: "Programmes chosen for your child’s interests and long-term strategy.",
     text: "Every experience is selected as part of your child’s long-term strategy: university programmes, boarding school preparation, language immersion and career exploration.",
     icon: SunHorizon,
     image: serviceSummer,
-    href: routes.services,
+    href: `${routes.schools}#programmes`,
   },
   {
     title: "Academic Support",
+    short: "A dedicated curator, grades under control and a report every month.",
     text: "A dedicated academic curator monitors grades, oversees subjects and exams, communicates with the school and brings in tutors when necessary — with regular reports to parents.",
     icon: BookOpenText,
     image: serviceAcademic,
-    href: routes.services,
+    href: routes.academicSupport,
   },
   {
     title: "BN Academic Centre",
+    short: "500+ tutors from the US and UK for curricula, exams and projects.",
     text: "Over 500 professional tutors from the US and UK. IB, A-Levels, IGCSE, AP, SAT, ACT, IELTS, TOEFL and entrance exams — delivered one-to-one online around each student’s goals.",
     icon: ChalkboardTeacher,
     image: serviceAcademicCentre,
-    href: routes.services,
+    href: routes.academicCentre,
   },
   {
     title: "Family Support",
+    short: "Visas, housing, travel and relocation — one team, available 24/7.",
     text: "Visas, accommodation, insurance, legal matters, flights, relocation and adaptation. One team. One point of contact. Support whenever you need it — 24/7 premium service.",
     icon: Handshake,
     image: serviceFamily,

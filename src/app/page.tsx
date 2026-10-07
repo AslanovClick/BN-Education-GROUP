@@ -8,6 +8,7 @@ import { Hero } from "@/components/sections/Hero";
 import { PartnersStrip } from "@/components/sections/PartnersStrip";
 import { Process } from "@/components/sections/Process";
 import { Services } from "@/components/sections/Services";
+import { StoriesTeaser } from "@/components/sections/stories/StoriesTeaser";
 
 export default function HomePage() {
   return (
@@ -21,6 +22,7 @@ export default function HomePage() {
         <Process />
         <About />
         <Events />
+        <StoriesTeaser />
         <CtaBanner />
       </main>
       <Footer />

@@ -52,7 +52,7 @@ export function Reveal({ variant = "fadeUp", delay = 0, ...rest }: RevealProps) 
 type StaggerProps = Omit<ComponentProps<typeof motion.div>, "variants" | "initial" | "whileInView"> & {
   gap?: number;
   delay?: number;
-  as?: "div" | "ol" | "ul";
+  as?: "div" | "ol" | "ul" | "dl";
 };
 
 /** Parent that staggers its <StaggerItem> children as they enter the viewport. */

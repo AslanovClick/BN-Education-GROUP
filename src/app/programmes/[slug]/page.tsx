@@ -38,8 +38,8 @@ export default async function ProgrammeArticlePage({ params }: PageProps<"/progr
         <PageHero
           crumbs={[
             { label: "Home", href: routes.home },
-            { label: "Services", href: routes.services },
-            { label: "Summer Programmes", href: `${routes.services}#programmes` },
+            { label: "Schools", href: routes.schools },
+            { label: "Summer Programmes", href: `${routes.schools}#programmes` },
             { label: article.title },
           ]}
           title={article.title}
@@ -91,7 +91,7 @@ export default async function ProgrammeArticlePage({ params }: PageProps<"/progr
                     <Button href={routes.consultation} arrow>
                       Book a Consultation
                     </Button>
-                    <Button href={`${routes.services}#programmes`} variant="outline-gold">
+                    <Button href={`${routes.schools}#programmes`} variant="outline-gold">
                       All programmes
                     </Button>
                   </div>

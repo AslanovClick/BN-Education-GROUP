@@ -11,7 +11,7 @@ import { routes } from "@/content/site";
 
 export const metadata: Metadata = {
   title: "Book a Consultation",
-  description: "Choose a convenient time for a confidential conversation with our senior education advisor.",
+  description: "The first meeting is free. Choose a convenient time for a confidential conversation about your child and your family’s goals.",
 };
 
 export default function ConsultationPage() {
@@ -26,7 +26,7 @@ export default function ConsultationPage() {
               Book a <em>Consultation</em>
             </>
           }
-          description="Choose a convenient time for a confidential conversation with our senior education advisor."
+          description="The first meeting is free. Choose a convenient time — we’ll get to know your child, discuss your family’s goals and recommend the right next step."
           image={heroImage}
         />
         <PartnersStrip />

@@ -1,7 +1,8 @@
 import Image from "next/image";
-import { EnvelopeSimple, InstagramLogo, LinkedinLogo, MapPin, Phone } from "@phosphor-icons/react/ssr";
+import { Clock, EnvelopeSimple, Phone } from "@phosphor-icons/react/ssr";
 import type { Icon as PhosphorIcon } from "@phosphor-icons/react";
 import { Icon } from "@/components/ui/Icon";
+import { SocialLinks } from "@/components/ui/SocialLinks";
 import { contact, footerNav, routes } from "@/content/site";
 import { SiteLink } from "./SiteLink";
 
@@ -49,10 +50,9 @@ export function Footer() {
             <ContactItem icon={Phone} href={contact.phoneHref}>
               {contact.phone}
             </ContactItem>
-            <ContactItem icon={MapPin}>{contact.city}</ContactItem>
-            <li className="flex gap-2.5 pt-2">
-              <SocialLink href={contact.linkedin} label="LinkedIn" icon={LinkedinLogo} />
-              <SocialLink href={contact.instagram} label="Instagram" icon={InstagramLogo} />
+            <ContactItem icon={Clock}>{contact.hours}</ContactItem>
+            <li className="pt-2">
+              <SocialLinks />
             </li>
           </FooterColumn>
         </div>
@@ -103,17 +103,5 @@ function ContactItem({ icon, href, children }: { icon: PhosphorIcon; href?: stri
         <span className="inline-flex items-center gap-3 text-sm text-white/65">{content}</span>
       )}
     </li>
-  );
-}
-
-function SocialLink({ href, label, icon }: { href: string; label: string; icon: PhosphorIcon }) {
-  return (
-    <a
-      href={href}
-      aria-label={label}
-      className="inline-flex size-10 items-center justify-center rounded-full border border-white/15 text-white/75 transition-colors duration-300 hover:border-gold-500 hover:text-gold-500"
-    >
-      <Icon icon={icon} size={18} />
-    </a>
   );
 }
