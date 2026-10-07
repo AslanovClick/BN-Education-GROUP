@@ -169,24 +169,24 @@ function MobileItem({ item, pathname, onNavigate }: { item: NavItem; pathname: s
 
   return (
     <>
-      <div className="flex items-center">
-        <SiteLink href={item.href} onClick={onNavigate} aria-current={pathname === item.href ? "page" : undefined} className={linkClass}>
-          {item.label}
-        </SiteLink>
-        <button
-          type="button"
-          aria-expanded={open}
-          aria-label={`${open ? "Hide" : "Show"} ${item.label.toLowerCase()} pages`}
-          onClick={() => setOpen((v) => !v)}
-          className="-mr-2 inline-flex size-11 items-center justify-center rounded-sm text-ink-800 transition-colors hover:bg-ink-800/5"
-        >
-          <Icon icon={CaretDown} size={18} className={cn("transition-transform duration-300 ease-out-soft", open && "rotate-180")} />
-        </button>
-      </div>
-      <div className={cn("grid transition-[grid-template-rows] duration-400 ease-out-soft", open ? "grid-rows-[1fr]" : "grid-rows-[0fr]")}>
+      {/* The whole row only toggles the list — the hub opens via "All services" inside it */}
+      <button
+        type="button"
+        aria-expanded={open}
+        aria-controls={`mobile-${item.label.toLowerCase()}`}
+        onClick={() => setOpen((v) => !v)}
+        className={cn(linkClass, "w-full justify-between text-left")}
+      >
+        {item.label}
+        <Icon icon={CaretDown} size={18} className={cn("text-ink-800 transition-transform duration-300 ease-out-soft", open && "rotate-180")} />
+      </button>
+      <div
+        id={`mobile-${item.label.toLowerCase()}`}
+        className={cn("grid transition-[grid-template-rows] duration-400 ease-out-soft", open ? "grid-rows-[1fr]" : "grid-rows-[0fr]")}
+      >
         <div className="overflow-hidden">
         <ul className="pb-3">
-          {/* The hub itself, so the list is useful without tapping "Services" first */}
+          {/* The hub itself — the only way to open it from the mobile menu */}
           <li>
             <SiteLink
               href={item.href}
