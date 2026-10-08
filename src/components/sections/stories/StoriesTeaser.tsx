@@ -1,11 +1,12 @@
-import { Reveal, Stagger, StaggerItem } from "@/components/motion/Reveal";
+import { Reveal } from "@/components/motion/Reveal";
+import { SnapSlider } from "@/components/ui/SnapSlider";
 import { TextLink } from "@/components/ui/TextLink";
 import { Eyebrow } from "@/components/ui/Typography";
 import { stories } from "@/content/stories";
 import { routes } from "@/content/site";
 import { StoryCard } from "./StoryParts";
 
-/** Homepage: three stories in regular cards, with a link to all of them. */
+/** Homepage: three stories — a swipeable slider on phones, a grid from tablets up. */
 export function StoriesTeaser() {
   return (
     <section id="stories" className="section-y bg-white">
@@ -22,13 +23,17 @@ export function StoriesTeaser() {
             All stories
           </TextLink>
         </Reveal>
-        <Stagger className="mt-10 grid gap-5 sm:grid-cols-2 lg:mt-12 lg:grid-cols-3 lg:gap-6">
-          {stories.slice(0, 3).map((story, i) => (
-            <StaggerItem key={story.title} className={i === 2 ? "sm:hidden lg:block" : undefined}>
-              <StoryCard story={story} />
-            </StaggerItem>
-          ))}
-        </Stagger>
+        <Reveal delay={0.1} className="mt-10 lg:mt-12">
+          <SnapSlider
+            label="Stories"
+            until="md"
+            gridClassName="md:grid md:grid-cols-2 md:gap-5 lg:grid-cols-3 lg:gap-6 md:[&>li:nth-child(3)]:hidden lg:[&>li:nth-child(3)]:block"
+          >
+            {stories.slice(0, 3).map((story) => (
+              <StoryCard key={story.title} story={story} />
+            ))}
+          </SnapSlider>
+        </Reveal>
       </div>
     </section>
   );

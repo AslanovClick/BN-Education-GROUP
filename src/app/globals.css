@@ -1,8 +1,12 @@
 @import "tailwindcss";
 
-/* Devices without hover (phones, tablets): show hover-only content by default */
-@custom-variant touch (@media (hover: none));
-@custom-variant hover-fine (@media (hover: hover));
+/* Phones and tablets — no hover, or a phone-width screen: show hover-only content by default */
+@custom-variant touch {
+  @media (hover: none), (max-width: 767.98px) {
+    @slot;
+  }
+}
+@custom-variant hover-fine (@media (hover: hover) and (min-width: 768px));
 
 /* ==========================================================================
    BN Education — design tokens
